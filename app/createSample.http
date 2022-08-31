@@ -1,0 +1,8 @@
+POST http://localhost:3000/samples
+Content-Type: application/json
+
+{
+  "codebar": "12312312310",
+  "description": "Vito Guedes",
+  "colected_at": "2022-08-30T18:41:21-03:00"
+}
