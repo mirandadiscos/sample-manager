@@ -1,8 +1,7 @@
-POST http://localhost:3000/samples
+GET http://localhost:3000/samples/2
 Content-Type: application/json
 
 {
-  "codebar": "12312312310",
-  "description": "Vito Guedes",
-  "colected_at": "2022-08-30T18:41:21-03:00"
+  "born_at": "2022-08-30T18:41:21-03:00",
+  "gender": "M"
 }

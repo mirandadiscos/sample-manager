@@ -7,38 +7,34 @@ RSpec.describe Sample, type: :model do
     it { is_expected.to validate_presence_of(:colected_at) }
   end
 
-  it "shouldnt save without codebar" do
-    sample = build(:sample,codebar: "")
-    sample.save
+  context 'business logic' do
+    let(:sample) { build(:sample_default) }
+    let(:sample_nocodebar) { build(:sample_without_codebar) }
+    let(:sample_noname) { build(:sample_without_name) }
+    let(:sample_nocolected) { build(:sample_without_colected) }
 
-    expect(sample.errors.messages.include?(:codebar)).to eq(true)
-  end
+    it "shouldnt save without codebar" do
+      sample_nocodebar.save
+      expect(sample.errors.messages.include?(:codebar)).to eq(false)
+    end
 
-  it "shouldn save withou description" do
-    sample = build(:sample, description: "")
-    sample.save
-    
-    expect(sample.errors.messages.include?(:description)).to eq(true)
-  end
+    it "shouldn save withou description" do
+      sample_noname.save
+      expect(sample_noname.errors.messages.include?(:description)).to eq(true)
+    end
 
-  it "should save without colected_at"do
-    sample = build(:sample, colected_at: "")
-    sample.save
+    it "should save without colected_at"do
+      sample_nocolected.save
+      expect(sample_nocolected.errors.messages.include?(:colected_at)).to eq(true)
+    end
 
-    expect(sample.errors.messages.include?(:colected_at)).to eq(true)
-  end
+    it "should not permit duplicated codebar" do
+      sample.save
+      sample_nocodebar.codebar = sample.codebar
+      sample_nocodebar.save
 
-  it "should subscribe attr" do
-    sample = create(:sample, codebar: "12312312310")
-    expect(sample.codebar).to eq("12312312310")
-  end
-
-  it "should not permit duplicated codebar" do
-    s1 = create(:sample)
-    s2 = build(:sample, codebar: s1.codebar )
-    s2.save
-
-    expect(s2.valid?).to eq(false)
-    expect(s2.errors.messages[:codebar]).to eq(["has already been taken"])
+      expect(sample_nocodebar.valid?).to eq(false)
+      expect(sample_nocodebar.errors.messages[:codebar]).to eq(["has already been taken"])
+    end
   end
 end
