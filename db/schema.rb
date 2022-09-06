@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_30_190112) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_05_220049) do
+  create_table "sample_tests", force: :cascade do |t|
+    t.integer "sample_id", null: false
+    t.string "code"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sample_id"], name: "index_sample_tests_on_sample_id"
+  end
+
   create_table "samples", force: :cascade do |t|
     t.string "codebar"
     t.string "description", null: false
@@ -22,4 +31,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_30_190112) do
     t.index ["codebar"], name: "index_samples_on_codebar", unique: true
   end
 
+  add_foreign_key "sample_tests", "samples"
 end

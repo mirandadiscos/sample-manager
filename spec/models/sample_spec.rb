@@ -5,6 +5,7 @@ RSpec.describe Sample, type: :model do
     it { is_expected.to validate_presence_of(:codebar) }
     it { is_expected.to validate_presence_of(:description) }
     it { is_expected.to validate_presence_of(:colected_at) }
+    it { should have_many(:sample_test) }
   end
 
   context 'business logic' do
