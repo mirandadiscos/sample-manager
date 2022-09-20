@@ -6,6 +6,7 @@ RSpec.describe Sample, type: :model do
     it { is_expected.to validate_presence_of(:description) }
     it { is_expected.to validate_presence_of(:colected_at) }
     it { should have_many(:sample_test) }
+    it { should accept_nested_attributes_for(:sample_test) }
   end
 
   context 'business logic' do

@@ -3,7 +3,7 @@ class SamplesController < ApplicationController
 
   # GET /samples
   def index
-    @samples = Sample.all
+    @samples = Sample.includes(:sample_test).limit(30)
 
     render json: @samples
   end
@@ -46,6 +46,6 @@ class SamplesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def sample_params
-      params.require(:sample).permit(:codebar,:description,:colected_at,:born_at, :gender)
+      params.require(:sample).permit(:codebar,:description,:colected_at,:born_at, :gender, sample_tests_attributes: [:code, :status ])
     end
 end

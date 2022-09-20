@@ -8,6 +8,7 @@ RSpec.describe SampleTest, type: :model do
   context 'validations' do
     it { should validate_presence_of(:code) }
     it { should validate_presence_of(:status) }
+
     it do
       should define_enum_for(:status).
         with_values([:admited, :processed, :released])
